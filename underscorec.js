@@ -1,5 +1,5 @@
 /*jshint strict: true */
-/*global alert */
+/*global alert console */
 _c = (function() {
   'use strict';
   var me = {
@@ -54,9 +54,19 @@ _c = (function() {
     
     assert: function(condition, msg) {
       if (!condition) {
-        alert(me.fmt("Assertion failed: {}", msg || "(no message)"));
-        debugger;
+        throw(me.fmt("Assertion failed: {}", msg || "(no message)"));
       }
+    },
+    
+    // Shallow copy of a dictionary, skip inherited
+    copyDict: function(obj) {
+      var ret = {}, key;
+      for (key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          ret[key] = obj[key];
+        }
+      }
+      return ret;
     },
 
     before: function(str, delim) {
