@@ -1,6 +1,8 @@
+/*jshint strict: true */
+/*global alert */
 _c = (function() {
   'use strict';
-  return {
+  var me = {
     forEachKeyValue: function(obj, fn) {
       var key = null;
       for(key in obj) {
@@ -49,6 +51,13 @@ _c = (function() {
       }
       return str;
     },
+    
+    assert: function(condition, msg) {
+      if (!condition) {
+        alert(me.fmt("Assertion failed: {}", msg || "(no message)"));
+        debugger;
+      }
+    },
 
     before: function(str, delim) {
      var i = str.indexOf(delim);
@@ -68,4 +77,6 @@ _c = (function() {
 
 
   };
+  
+  return me;
 })();
