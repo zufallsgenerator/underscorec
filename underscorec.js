@@ -1,7 +1,27 @@
 /*jshint strict: true */
-/*global alert console */
+/*global alert console pystringformat */
 _c = (function() {
   'use strict';
+  var fmt;
+  if (typeof pystringformat === 'undefined') {
+    fmt = function() {
+      var str = arguments[0], i, r;
+      for (i = 1; i < arguments.length; i++) {
+        r = new RegExp("\\{" + (i - 1 ) + "\\}", "g");
+        if (r.test(str)) {
+          r.lastIndex = 0; // Reset regexp
+          str = str.replace(r, String(arguments[i]));
+        } else {
+          str = str.replace("{}", String(arguments[i]));
+        }
+      }
+      return str;
+    };
+  } else {
+    fmt = pystringformat;
+  }
+  
+  
   var me = {
     forEachKeyValue: function(obj, fn) {
       var key = null;
@@ -38,19 +58,7 @@ _c = (function() {
      *   _c.fmt("Someone please call {0} {0} {1}", "one", "two");
      *
      */
-    fmt: function() {
-      var str = arguments[0], i, r;
-      for (i = 1; i < arguments.length; i++) {
-        r = new RegExp("\\{" + (i - 1 ) + "\\}", "g");
-        if (r.test(str)) {
-          r.lastIndex = 0; // Reset regexp
-          str = str.replace(r, String(arguments[i]));
-        } else {
-          str = str.replace("{}", String(arguments[i]));
-        }
-      }
-      return str;
-    },
+    fmt: fmt,
     
     assert: function(condition, msg) {
       if (!condition) {
