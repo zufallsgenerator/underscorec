@@ -60,6 +60,10 @@ _c = (function() {
      */
     fmt: fmt,
     
+    log: function() {
+      console.log(me.fmt.apply(me, arguments));
+    },
+    
     assert: function(condition, msg) {
       if (!condition) {
         throw(me.fmt("Assertion failed: {}", msg || "(no message)"));
