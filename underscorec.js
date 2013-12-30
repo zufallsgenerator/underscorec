@@ -87,7 +87,28 @@ _c = (function() {
       }
       return ret;
     },
-
+    /**
+     * Make a deep copy of a json object (objects and arrays)
+     */
+    deepCopyJson: function(obj) {
+      var ret, key, value;
+      if (obj.indexOf && !obj.hasOwnProperty("indexOf")) {
+        ret = [];
+      } else {
+        ret = {};
+      }
+      for (key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          value = obj[key];
+          if (typeof value === "object") {
+            ret[key] = me.deepCopyJson(value);
+          } else {
+            ret[key] = value;
+          }
+        }
+      }
+      return ret;
+    },
     before: function(str, delim) {
      var i = str.indexOf(delim);
      if (i === -1) {
