@@ -31,6 +31,13 @@ _c = (function() {
         }
       }
     },
+    
+    /**
+     * Iterate over an array
+     *
+     * @param {Array} arr  the array
+     * @param {Function} fn  callback is called with fn(item, index)
+     */
     each: function(arr, fn) {
       var i;
       for (i=0;i<arr.length;i++) {
