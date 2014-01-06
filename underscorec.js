@@ -100,7 +100,7 @@ _c = (function() {
       for (key in obj) {
         if (obj.hasOwnProperty(key)) {
           value = obj[key];
-          if (typeof value === "object") {
+          if (typeof value === "object" && value !== null) {
             ret[key] = me.deepCopyJson(value);
           } else {
             ret[key] = value;
